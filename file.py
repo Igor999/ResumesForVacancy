@@ -2,24 +2,34 @@ import pandas as pd
 from datetime import timedelta, datetime
 import smtplib
 
+# with open('time.txt', 'w') as op:
+#     op.write(str(datetime.now().strftime("%Y-%m-%d")))
+
 smtpObj = smtplib.SMTP('smtp.gmail.com', 587)
 smtpObj.starttls()
-smtpObj.login('your google mail', 'your password')
+smtpObj.login('your google gmail', 'yor password')
 
 
-try:
-    self.smtp.ehlo()
-    self.smtp.starttls()
-    self.smtp.ehlo
-except:
-    print("No TLS :(")
+# try:
+#     self.smtp.ehlo()
+#     self.smtp.starttls()
+#     self.smtp.ehlo
+# except:
+#     print("No TLS :(")
 
 jobs = pd.read_excel("lists.xlsx", sheet_name='A')
 resume = pd.read_excel("lists.xlsx", sheet_name='B')
 
+line = ""
+with open('time.txt', 'r') as op:
+    line = op.readline()
+    print(line)
 with open('time.txt', 'w') as op:
-    if op.read() == (str(datetime.now().strftime("%Y-%m-%d"))):
-        op.write(str(datetime.now().strftime("%Y-%m-%d") + timedelta(7).strftime("%Y-%m-%d")))
+    print(line)
+    if line == (str(datetime.now().strftime("%Y-%m-%d"))):
+        date = datetime.now().strftime("%Y-%m-%d")
+        date = date + timedelta(7)
+        op.write(str(date))
 
         resume = resume[resume['Дата'] > datetime.now() - timedelta(7)]
         resume = resume[resume['Правка резюме пройдена'] == True]
